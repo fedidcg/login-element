@@ -37,7 +37,9 @@ When agents get to a website and want to login the user to it, they need to firs
 
 ### Federation
 
-LoginAction has a property called `federated` which describes what the FedCM request would be:
+The proposal is to introduce to LoginAction a property called `federation` which describes what the FedCM request would be.
+
+For example:
 
 ```html
 <script type="application/ld+json">
