@@ -98,7 +98,7 @@ const {token} = await navigator.credentials.get({
   identity: { /** ... params ... */ }
 });
 ```
-### <meta>
+### `meta` tags
 
 In this variation we’d use the <meta> tag disassociated with the element to be clicked.
 
