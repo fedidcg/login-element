@@ -42,11 +42,21 @@ LoginAction has a property called `federated` which describes what the FedCM req
 The semantics of this annotation is that an assisted browser would be able to assume that “this is social login button”, and that “clicking on it” (which makes it indistinguishable from) would lead to an equivalent FedCM request.
 
 ```html
-<div itemscope itemtype="https://schema.org/LoginAction">
-  <data itemprop="federation" 
-    value="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\"" />
-  <button>Sign-in with X</button>
-</div>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LoginAction",
+  "federation": {
+    "providers": [{
+      "@type": "FederatedLoginProvider",
+      "configURL": "https://idp.example/config.json",
+      "clientId": "1234",
+      "nonce": "4567",
+      "fields": ["email", "name", "picture"],
+     }]
+  },
+}
+</script>
 ```
 
 The invocation of the action occurs via a DOM event:
@@ -91,24 +101,14 @@ const {token} = await navigator.credentials.get({
 });
 ```
 
-### JSON-LD
+### Microdata
 
 ```html
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "LoginAction",
-  "federation": {
-    "providers": [{
-      "@type": "FederatedLoginProvider",
-      "configURL": "https://idp.example/config.json",
-      "clientId": "1234",
-      "nonce": "4567",
-      "fields": ["email", "name", "picture"],
-     }]
-  },
-}
-</script>
+<div itemscope itemtype="https://schema.org/LoginAction">
+  <data itemprop="federation" 
+    value="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\"" />
+  <button>Sign-in with X</button>
+</div>
 ```
 
 ## Alternatives Considered
