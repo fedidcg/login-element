@@ -18,23 +18,12 @@ This is a set of proposals to allow websites to expose to agentic browsers how t
 
 There are probably a few conflicting goals, but here are a few that occur to me:
 
-- Ergonomics matter: it should be easy for developers (and framework authors) to retrofit this annotation into their existing pages. The benefits for developers might be low, so the easier we can make the better (e.g. ARIA struggles to get adoption because the benefit/cost ratio is low).
+- Ergonomics: it should be easy for developers (and framework authors) to retrofit this annotation into their existing pages. The benefits for developers might be low, so the easier we can make the better (e.g. ARIA struggles to get adoption because the benefit/cost ratio is low).
 - Tailwinds: it helps if the design interoperates with other assistive agents, like search engines or chatbots, so that we can increase the incentives for developers to adopt and maintain the annotation.
-- Privacy: ideally, the user agent should make its “agentic mode” and an “non-agentic mode” indistinguishable from each other for the website to the extent that it is possible
 
 ## Proposal
 
-There are many serializations and ontologies under consideration, but just to fix on something, let’s start with a proposal to extend schema.org/LoginAction and, if necessary, microdata:
-
-https://github.com/schemaorg/schemaorg/issues/4507#issuecomment-3740859356
-
-The proposal is to support all sorts of “login” forms, such as:
-
-- Finding the login page in the first place
-- Usernames and Password/Passkeys Forms
-- Email/SMS OTP Forms
-- Social Login Buttons
-- Password Reset Forms
+There are many serializations and ontologies under consideration, but just to fix on something, let’s start with a proposal to extend schema.org/LoginAction and, if necessary, microdata.
 
 ### Login page discovery
 
@@ -91,7 +80,6 @@ Here are a few ones that I’m aware of:
 - Invent a new attribute
 - WebMCP: https://github.com/webmachinelearning/webmcp/issues/22 
 
-
 ### Mediation: `conditional`
 
 In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
@@ -102,11 +90,6 @@ const {token} = await navigator.credentials.get({
   identity: { /** ... params ... */ }
 });
 ```
-
-Problem: 
-
-- Reveals to the website that we are operating under an assistant
-- https://github.com/schemaorg/schemaorg/issues/4507#issuecomment-3740859356
 
 ### JSON-LD
 
@@ -126,12 +109,6 @@ Problem:
   },
 }
 </script>
-```
-
-The invocation of the action occurs via a DOM event:
-
-```javascript
-document.addEventListener("action", ({type, federation: {token}}) => login(token));
 ```
 
 ## Alternatives Considered
@@ -163,13 +140,10 @@ document.addEventListener("login", ({token}) => login(token));
 </script>
 ```
 
-Problem: 
-
-- Reveals to the website that we are operating under an assistant
-
 # Open Questions
 
-Should this support also Passwords/Passkeys too?
+- Are there better ways to invoke the action other than events? Maybe `onaction` callbacks?
+- Should this support also Passwords/Passkeys too?
 
 ### Usernames/Passwords (or Passkeys)
 
