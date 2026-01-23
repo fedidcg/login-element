@@ -69,24 +69,24 @@ There are two dimensions to be considered here with various options in each one:
 
 Here are a few ones that I’m aware of:
 
-### Serialization
-- microformats
-- RDFa
-- JSON-LD
-- Use the `<data>` element
-- Use the `data-*` attribute
-- The `autocomplete` attribute
--- Something entirely new?
-
-### Semantics
-
-- Activity Streams
-- Should we use https://schema.org/RegisterAction instead?
-- The `autocomplete` taxonomy
-- Something entirely new?
-- Something new?
-- Invent a new attribute
-- WebMCP: https://github.com/webmachinelearning/webmcp/issues/22 
+- Serialization
+  - microformats
+  - RDFa
+  - JSON-LD
+  - Use the `<data>` element
+  - Use the `data-*` attribute
+  - The `autocomplete` attribute
+  -- Something entirely new?
+- Semantics
+  - Activity Streams
+  - Should we use https://schema.org/RegisterAction instead?
+  - The `autocomplete` taxonomy
+  - Something entirely new?
+  - Something new?
+  - Invent a new attribute
+  - WebMCP: https://github.com/webmachinelearning/webmcp/issues/22
+ 
+Here are a few compelling variations that we are actively exploring:
 
 ### Mediation: `conditional`
 
@@ -97,6 +97,18 @@ const {token} = await navigator.credentials.get({
   mediation: "conditional",
   identity: { /** ... params ... */ }
 });
+```
+### <meta>
+
+In this variation we’d use the <meta> tag disassociated with the element to be clicked.
+
+```html
+<meta http-equiv="Federated-Authentication" 
+  content="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\""
+>
+<script>
+document.addEventListener("login", ({token}) => login(token));
+</script>
 ```
 
 ### Microdata
@@ -124,19 +136,6 @@ Cons:
 
 - Requires RPs to redeploy their servers
 - WWW-Authenticate is blocking (and because of that, we think, poorly adopted)
-
-### <meta>
-
-In this variation we’d use the <meta> tag disassociated with the element to be clicked.
-
-```html
-<meta http-equiv="Federated-Authentication" 
-  content="client_id=\"1234\", config_url=\"https://idp.example/fedcm.json\""
->
-<script>
-document.addEventListener("login", ({token}) => login(token));
-</script>
-```
 
 # Open Questions
 
