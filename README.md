@@ -89,6 +89,18 @@ Here are a few ones that I’m aware of:
  
 Here are a few compelling variations that we are actively exploring:
 
+### `<login>`
+
+Along the lines of the [`<search>`](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/search) element, we'd introduce a `<login>` element:
+
+```html
+<login>
+  <federation clientId="1234" configURL="https://idp.example/config.json">
+    <a href="https://idp.example/oauth?...">Sign-in with IdP</a>
+  </federation>
+</login>
+```
+
 ### Mediation: `conditional`
 
 In this variation, we use the `mediation="conditional"` parameter to let the agent operate in the unresolved promise.
