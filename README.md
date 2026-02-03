@@ -8,13 +8,13 @@ TL;DR; This is a proposal to allows website authors to declare to agentic browse
 
 ## Problem Statement
 
-Users of the web are increasingly using agentic browsers to complete their journeys. Many of these journeys involve logging in to websites. 
+Users of the web are increasingly using agentic browsers to complete their journeys. Many of these journeys involve logging in to websites with the user's passwords and federated accounts, the two most popular login mechanisms on the web today. 
 
-To browser and log users in, agentic browsers have developed a baseline statistical LLM model that gives them a basic understanding of web pages, enough to allow them to click on links and fill forms to assist the user through the process. 
+To browse and log users in, agentic browsers have developed a statistical LLM model that gives them a broad (but non-deterministic) understanding of web pages, enough to allow them to click on links and fill forms to assist the user through the process. 
 
-Unfortunately, the same statistical design choice that brings the broad generalization and coverage also brings lower precision and recall compared to structured APIs that are opted-into by website owners.
+Unfortunately, the same statistical design choice that brings the broad generalization and coverage also brings lower precision and recall compared to structured / deterministic APIs that are opted-into by website owners.
 
-Currently, login forms are marked up with a combination of low-level opaque primitives in browsers, which prevents browsers (specially agentic ones) to offer high-level / structured ways to log users in (e.g. an account chooser). 
+Currently, login forms are marked up with a combination of low-level opaque primitives in browsers, which prevents agentic browsers to offer high-level / structured ways to log users in (e.g. an account chooser). 
 
 Federated login, specifically, is generally presented as a series of "Sign-in with IdP" buttons that are typically marked up as a `<a>`, a `<form>` or javascript, such as `window.open()` or a `window.location.href`. For example:
 
@@ -24,9 +24,11 @@ Federated login, specifically, is generally presented as a series of "Sign-in wi
 </a>
 ```
 
-The problem here is that, because this is just any other combination of low level HTML tags, the agentic browser infers the options for federated login statistically, which has lower precision and recall when the agent has access to structured tools.
+The problem here is that, because this is just any other combination of low level HTML tags, the agentic browser infers the options for federated login statistically.
 
-The problem is: what’s the best way that website authors can annotate their page to make agentic browsers better aware of their federated login flows?
+Because of that, many user journeys that involve users logging in to websites with their federated accounts end up failing more often than not (in an unpredictable way).
+
+Is there anything that websites authors can do to make agentic browsers better aware of their federated login flows?
 
 ## Goals
 
