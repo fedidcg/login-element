@@ -16,9 +16,7 @@ To retrofit and log users in the existing content, agentic browsers have develop
 
 Unfortunately, the same statistical design choice that brings the broad generalization and coverage also brings lower precision and recall compared to structured / deterministic APIs that are opted-into by website owners.
 
-Currently, login forms are marked up with a combination of low-level opaque primitives in browsers, which prevents agentic browsers to offer high-level / structured ways to log users in (e.g. an account chooser). 
-
-Federated login, specifically, is generally presented as a series of "Sign-in with IdP" buttons that are typically marked up as a `<a>`, a `<form>` or javascript, such as `window.open()` or a `window.location.href`. For example:
+Currently, login forms are marked up with a combination of low-level opaque primitives in browsers. Federated login, specifically, is generally presented as a series of "Sign-in with IdP" buttons that are typically marked up as a `<a>`, a `<form>` or javascript, such as `window.open()` or a `window.location.href`. For example:
 
 ```html
 <a href="https://idp.example/oauth?...">
@@ -26,13 +24,15 @@ Federated login, specifically, is generally presented as a series of "Sign-in wi
 </a>
 ```
 
-The problem here is that, because this is just any other combination of low level HTML tags, the agentic browser infers the options for federated login statistically.
+The problem here is that, because this is just any other combination of low level HTML tags, the agentic browser infers the options for federated login statistically rather than deterministically, in an otherwise well-defined standardized protocol (typically OIDC and SAML).
 
 Because of that, many user journeys that involve users logging in to websites with their federated accounts end up failing more often than not (in an unpredictable way).
 
-Fortunately, a meaningful percentage of the federated login traffic has already been migrated to FedCM, especially for consumers, and APIs such as [IdP-initiated Request](https://github.com/fedidcg/idp-initiated) can further cover the remaining of the cases. 
+Fortunately, a meaningful percentage of the federated login traffic has already been migrated to FedCM, especially for consumers, and APIs such as [IdP-initiated Request](https://github.com/fedidcg/idp-initiated) can further cover the remaining of the deployment setups. 
 
-When the website uses FedCM to log users in via their federated accounts, the agentic browser is able to handle it as a structured tool, rather than as a unstructured statistical task.
+When the website uses FedCM to log users in via their federated accounts, the agentic browser is able to handle it as a structured tool, rather than as an unstructured statistical task.
+
+For example, because FedCM is mediated by the browser, the agentic browser can be sure that it is not accidentaly creating an account on the website (by comparing the list of [`approved_clients`](https://w3c-fedid.github.io/FedCM/#dom-identityprovideraccount-approved_clients)), substantially making this operatoin safer for users.
 
 ```html
 <a href="https://idp.example/oauth?..." 
@@ -41,7 +41,7 @@ When the website uses FedCM to log users in via their federated accounts, the ag
 </a>
 ```
 
-However, that forces the agentic browser to "click" on the button to determine what are the parameters in the FedCM request.
+However, because FedCM has been deployed primarily as an imperative JS call (see snippet above), the browser isn't able to see it before the call is made.
 
 Is there anything that websites authors can do to make agentic browsers aware that a federated login option is available through a FedCM request?
 
