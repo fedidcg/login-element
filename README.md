@@ -36,6 +36,14 @@ This gets transpiled into the following in supporting browsers:
 </a>
 ```
 
+And degrades gracefully to the following in browsers without native support:
+
+```html
+<span>
+  <a href="login.html">login</a>
+</span>
+```
+
 # Problem Statement
 
 One of the most common patterns on the Web is to allow users to login to websites.
