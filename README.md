@@ -6,7 +6,7 @@ Status: early draft
 
 # The `<login>` element
 
-TL;DR; every website has to create their own login flow, leading to an inconsistent, fragmented, inneficient and cumbersome user experience. This is a proposal to allow website authors to introduce an inline `<login>` element to wrap their "login" links typically found on the top right corner on their pages and provide a browser mediated and unified login flow across all authentication mechanisms (notably passwords, passkeys and federation) across every website. `<login>` renders like an `<a>` wrapping its inner content and opens a mediated **modal** dialog when clicked on with all login options available with a corresponding [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API). The Credential Management call is constructed according to the options declared inline declaratively with a new `<federation>` element, a `<passkey>` element and other credential types. In addition to the user experience benefits, the declarative `<login>` element allows browsers to pull login out of the content area into the browser area to, for example, re-use preferences across sites, display in browser UI (e.g. the URL bar) and discover login options in agentic browser flows.
+TL;DR; every website has to create their own login flow, leading to an inconsistent, fragmented, inneficient and cumbersome user experience. This is a proposal to allow website authors to introduce an inline `<login>` element to wrap their "login" links typically found on the top right corner on their pages and provide a browser mediated and unified login flow across all authentication mechanisms (notably passwords, passkeys and federation) across every website. `<login>` renders like an `<a>` wrapping its inner content and opens a mediated **modal** dialog when clicked on with all login options available with a corresponding [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API). The Credential Management call is constructed according to the options declared inline declaratively with a new `<credential>` element, which can represent all of the supported credential types. In addition to the user experience benefits, the declarative `<login>` element allows browsers to pull login out of the content area into the browser area to, for example, re-use preferences across sites, display in browser UI (e.g. the URL bar) and discover login options in agentic browser flows.
 
 ```html
 <login onselect="login()">
@@ -56,7 +56,7 @@ There are many conflicting goals that we are navigating, but here are a few that
 
 # Proposal
 
-The proposal is to introduce a `<login>` element (along with a `<federation>` and `<passkey>` elements and more to follow) that can declaratively describe an imperative Credential Management API call, along the lines of `<geolocation>`.
+The proposal is to introduce a `<login>` element (along with a `<credential>` element) that can declaratively describe an imperative Credential Management API call, along the lines of `<geolocation>`.
 
 We are still trying to figure out what are the right semantics, but one intuition is that `<login>` could work like `<a>` elements: an inline element that renders its inner contents and performs an action when users click on it.
 
@@ -123,7 +123,7 @@ This would allow us to introduce `<login>` and `<federation>` for each of these 
 
 # Open Questions
 
-- Can/should developers be able to control whether the `<federation>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
+- Can/should developers be able to control whether the `<login>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
 
 # Alternatives Under Consideration
 
