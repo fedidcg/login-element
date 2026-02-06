@@ -28,6 +28,14 @@ TL;DR; every website has to create their own login flow, leading to an inconsist
 </login>
 ```
 
+This gets transpiled into the following in supporting browsers:
+
+```html
+<a onclick="navigator.credentials.get({publicKey: ..., identity: ...}).then(login)">
+  <a href="login.html">login</a>
+</a>
+```
+
 # Problem Statement
 
 One of the most common patterns on the Web is to allow users to login to websites.
