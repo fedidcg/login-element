@@ -31,7 +31,7 @@ TL;DR; every website has to create their own login flow, leading to an inconsist
 This gets transpiled into the following in supporting browsers:
 
 ```html
-<a onclick="navigator.credentials.get({publicKey: ..., identity: ...}).then(login)">
+<a onclick="navigator.credentials.get({publicKey: ..., identity: ...}).then((credential) => {this.credential = credential; login();})">
   <a href="login.html">login</a>
 </a>
 ```
