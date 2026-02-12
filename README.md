@@ -9,7 +9,7 @@ Status: early draft
 TL;DR; every website has to create their own login flow, leading to an inconsistent, fragmented, inneficient and cumbersome user experience. This is a proposal to allow website authors to introduce an inline `<login>` element to wrap their "login" links typically found on the top right corner on their pages and provide a browser mediated and unified login flow across all authentication mechanisms (notably passwords, passkeys and federation) across every website. `<login>` renders like an `<a>` wrapping its inner content and opens a mediated **modal** dialog when clicked on with all login options available with a corresponding [Credential Management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API). The Credential Management call is constructed according to the options declared inline declaratively with a new `<credential>` element, which can represent all of the supported credential types. In addition to the user experience benefits, the declarative `<login>` element allows browsers to pull login out of the content area into the browser area to, for example, re-use preferences across sites, display in browser UI (e.g. the URL bar) and discover login options in agentic browser flows.
 
 ```html
-<login onselect="login()">
+<login oncomplete="login()">
   <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred"></credential>
   <credential type="federated" clientId="1234" configURL="https://idp1.example/config"></credential>
   <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
@@ -68,7 +68,7 @@ We are still trying to figure out what are the right semantics, but one intuitio
 The intention is to replace the typical "login" links that show up on the top right corner of websites with the following:
 
 ```html
-<login onselect="login()">
+<login oncomplete="login()">
   <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred"></credential>
   <credential type="federated" clientId="1234" configURL="https://idp1.example/config"></credential>
   <credential type="federated" clientId="5678" configURL="https://idp2.example/config"></credential>
@@ -90,7 +90,7 @@ One way that occurred to us that we could take a smaller and concrete step towar
 So, for example, as opposed to replacing the "login" top right corner links, we'd replace the individual passkeys buttons in the NASCAR flag:
 
 ```html
-<login onselect="login()">
+<login oncomplete="login()">
   <credential type="publickey" challenge="1234" rpId="example.com" userVerification="preferred">
     <a onclick="navigator.credentials.get({publicKey: ...})">Sign-in with a Passkey</a>
   </credential>  
@@ -100,7 +100,7 @@ So, for example, as opposed to replacing the "login" top right corner links, we'
 And the following for social login buttons:
 
 ```html
-<login onselect="login()">
+<login oncomplete="login()">
   <credential type="federated" clientId="1234" configURL="https://idp1.example/config">
     <a onclick="navigator.credentials.get({identity: ...})">Sign-in with IdP</a>
   </credential>  
