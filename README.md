@@ -114,7 +114,15 @@ Once we have each individual credential type working independently, it becomes a
 
 # Open Questions
 
+- ~Should this be only available for agentic browsers?~
+    - The intuition is that we shouldn't design markup that is only available to agentic browsing because it tends to be hard to develop again and maintain.
 - Can/should developers be able to control whether the `<login>` element is a "semantics only" element (such as `<search>`) so that it can be deployed exclusively in agentic browsers (but not affect regular users?)? If so, how?
+
+# Alternatives Under Consideration
+
+## Should `<login>` have default rendering?
+
+`<geolocation>` and `<install>` have a "default rendering" and "controlled" rendering which raises some user comprehension bars. We should consider if that would be applicable to `<login>`.
 
 ## Should `<login>` participate in `<form>` so that it can be used declaratively?
 
@@ -130,30 +138,11 @@ All forms of credentials are most useful server-side rather than client-side, so
 </form>
 ```
 
-# Alternatives Under Consideration
+# Alternatives Considered
 
-There are two dimensions to be considered here with various options in each one: (a) how to encode semantics and (b) which ontology to use.
+We considered a series of alternatives that were "sematics only" (e.g. markup that doesn't have any effect in the rendering engine), such as microdata and JSON-LD.
 
-Here are a few ones that I’m aware of:
-
-- Serialization
-  - microformats
-  - RDFa
-  - JSON-LD
-  - Use the `<data>` element
-  - Use the `data-*` attribute
-  - The `autocomplete` attribute
-  -- Something entirely new?
-- Semantics
-  - Activity Streams
-  - Should we use https://schema.org/RegisterAction instead?
-  - The `autocomplete` taxonomy
-  - Something entirely new?
-  - Something new?
-  - Invent a new attribute
-  - WebMCP: https://github.com/webmachinelearning/webmcp/issues/22
- 
-Here are a few compelling variations that we are actively exploring:
+We found this limitation to be less useful because it could lead to markup being poorly maintained over time if it was intended only for agentic browsers. 
 
 ## <script type="federation">
 
@@ -264,8 +253,6 @@ In this variation we’d use the <meta> tag disassociated with the element to be
 document.addEventListener("login", ({token}) => login(token));
 </script>
 ```
-
-# Alternatives Considered
 
 ## Overload WWW-Authenticate
 
